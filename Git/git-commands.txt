@@ -1,0 +1,98 @@
+https://dzone.com/articles/top-35-git-commands-with-examples-and-bonus
+
+
+git config --global user.name "Your name"  
+
+git config --global user.email "Your email"
+
+git version
+
+git init 
+
+git init <your repository name>
+
+git clone <your project URL>
+
+git add your_file_name
+
+git add *
+
+git commit -m “your useful commit message”
+
+git status
+
+git branch
+
+git branch <branch_name>
+
+git branch -d <branch_name>
+
+git checkout <branch_name>
+
+git checkout -b <your_new_branch_name>
+
+git remote add <shortname> <url>
+
+git remote add origin https://dev.azure.com/aCompiler/_git/DemoProject
+
+git push -u origin feature_branch
+
+git push --set-upstream <short_name> <branch_name>
+
+git fetch
+
+git pull <remote_url>
+
+git stash
+
+git stash list
+
+git stash apply
+
+git log
+
+git log --all
+
+git shortlog
+
+git show <your_commit_hash>
+
+git rm <your_file_name>
+
+git merge <branch_name>
+
+git rebase <base>
+
+git bisect start
+
+git bisect bad z123
+
+git cherry-pick <commit-hash>
+
+git archive --format zip HEAD > archive-HEAD.zip
+
+git pull --rebase
+
+git blame <your_file_name>
+
+git tag -a v1.0.0
+
+git verify-commit <commit>
+
+git verify-tag <tag>
+
+git diff HEAD <filename>
+
+git diff <source branch> <target branch>
+
+git citool
+
+git mv <old-file-name> <new-file-name>
+
+git clean
+
+git help <git_command>
+
+git whatchanged
+
+
