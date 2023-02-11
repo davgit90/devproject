@@ -1,0 +1,57 @@
+docker --version
+
+docker pull httpd
+
+docker images
+
+docker run -it -d httpd
+
+docker ps
+
+docker ps -a
+
+docker exec -it 09ca6feb6efc bash
+
+docker rm 9b6343d3b5a0
+
+docker ps -a
+
+docker rmi fce289e99eb9
+
+docker restart 09ca6feb6efc
+
+docker ps
+
+docker stop 09ca6feb6efc
+
+docker start 09ca6feb6efc
+
+docker kill 09ca6feb6efc
+
+docker commit 09ca6feb6efc geekflare/httpd_image
+
+docker login
+
+docker push geekflare/httpd_image
+
+docker network ls
+
+docker info
+
+sudo docker cp 09ca6feb6efc:/usr/local/apache2/logs/httpd.pid /home/geekflare/
+
+docker history httpd
+
+docker logs 09ca6feb6efc
+
+docker search hadoop
+
+docker update --help
+
+docker volume create
+
+docker volume ls
+
+docker plugin install vieux/sshfs DEBUG=1
+
+docker logout
