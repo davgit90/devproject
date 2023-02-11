@@ -1,0 +1,164 @@
+pipeline {
+    agent any
+    stages {
+       stage('Browser Tests') {
+            parallel {
+                stage('Chrome') {
+                    steps {
+                        echo "Chrome Tests"
+                    }           
+}
+
+		   steps {
+                echo 'Building'
+            }
+        }
+        stage('Test') {
+		            when {
+                allOf {
+                    not { branch 'master' }
+                    environment name: 'JOB_NAME', value: 'Foo'
+                }
+            }
+            steps {
+                echo 'Testing'
+            }
+        }
+        stage('Deploy') {
+		 when {
+                environment name: 'JOB_NAME', value: 'foo'
+            }
+            steps {
+                echo 'Deploying'
+            }
+        }
+    }
+}
+
+
+ agent {
+        node {
+            label 'my-defined-label'
+            customWorkspace '/some/other/path'
+        }
+    }
+	
+pipeline {
+    agent {
+        docker {
+            label 'docker'
+            image 'maven:3.5.0-jdk-8'
+        }
+    }
+}	
+	
+	
+	
+pipeline {
+    agent any
+    environment {
+        DISABLE_AUTH = 'true'
+        DB_ENGINE        = 'sqlite'
+    }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'printenv’
+            }
+        }
+    }
+}	
+
+
+environment {
+    AWS_ACCESS = credentials('AWS_ KEY')
+    AWS_SECRET = credentials('AWS_SECRET')
+}
+
+
+pipeline {
+    agent any
+    stages {
+        stage('No-op') {
+            steps {
+                sh 'ls'
+            }
+        }
+    }
+    post {
+        always {
+            echo 'I have finished'
+            deleteDir() // clean up workspace
+        }
+        success {
+            echo 'I succeeded!'
+        }
+        unstable {
+            echo 'I am unstable :/'
+        }
+        failure {
+            echo 'I failed :('
+        }
+        changed {
+            echo 'Things are different...'
+        }
+    }
+}
+
+
+
+pipeline {
+    agent { label "docker" }    //Run everything on an agent with the docker daemon
+    environment {
+        IMAGE = readMavenPom().getArtifactId()    //Use Pipeline Utility Steps
+        VERSION = readMavenPom().getVersion()
+    }
+    stages {
+        stage('Build') {
+            agent {
+                docker {
+                    reuseNode true    //reuse the workspace on the agent defined at top-level\
+                    image 'maven:3.5.0-jdk-8'
+                }
+            }
+            steps {
+                sh 'mvn clean install'
+                junit(allowEmptyResults: true, testResults: '**/target/surefire-reports/TEST-*.xml')
+            }
+        }
+        stage('Quality Analysis') {
+            environment {
+                SONAR = credentials('sonar') //use ‘sonar’ credentials
+            }
+            parallel {     // run Sonar Scan and Integration tests in parallel
+                stage ("Integration Test"} {
+                    steps {
+                        echo 'Run integration tests here...'
+                    }
+                }
+                stage("Sonar Scan") {
+                    steps {
+                        sh "mvn sonar:sonar -Dsonar.login=$SONAR_PSW"
+                    }
+                }
+            }
+        }
+        stage('Build and Publish Image') {
+            when {
+                branch 'master'    //only run these steps on the master branch
+            }
+            steps {
+                sh """
+                    docker build -t ${IMAGE} .
+                    docker tag ${IMAGE} ${IMAGE}:${VERSION}
+                    docker push ${IMAGE}:${VERSION}
+                """
+            }
+        }
+    }
+    post {
+        failure {    // notify users when the Pipeline fails
+            mail(to: 'me@example.com', subject: "Failed Pipeline", body: "Something is wrong.")
+        }
+    }
+}
