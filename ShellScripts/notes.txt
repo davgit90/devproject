@@ -1,0 +1,36 @@
+# Sample if statement
+
+if [condition1]; then
+   command
+elif [condition2]; then
+   command
+else 
+   command
+fi
+
+# types of shells
+cat /etc/shells
+
+#shebang
+#!bin/bash
+
+#commands 
+chmod +x file.sh
+var = $(command-name)
+var = `command-name`
+awk
+cut
+grep
+sort -n -r -h -hr
+du -h -a -ah
+find 
+mtime
+
+#read a file content by opening it
+vi , vim , nano 
+#read a file content by not opening it
+cat , less , more
+#read a file content with conditions
+more , tail ,grep ,awk , sed
+
+
