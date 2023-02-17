@@ -1,0 +1,25 @@
+Automate the backup of databases and schedule it weekly.
+Automate the Database upgrade using shell script.
+script to generate an alert in slack whenever any service goes down.
+script to check list of active services in Linux.
+script to check available disk in each drive and generate alert when it crosses 80% usage.
+script to clean the disk space on regular interval for logs older than 1 week.
+script to automate software installation in linux boxes.
+script to check the remote connectivity of 1000 systems in your infrastructure and generate alert if its down.
+script to start a down service in system automatically.
+script to do monitoring setup in system.
+script to connect to databases and check all the running processes.
+script to send email when the free RAM is less than 20% left.
+shecll script to create databases.
+shell script to clone git repo and upload the git changes.
+shell scripts to kill a process in linux system.
+shell script to get CPU load alert.
+shell script to transfer files from one machine to another.
+shell script to shutdown 100 systems in a single go.
+shell script to purge database binary logs automatically.
+shell script to get names of users who logged in to linux system in last 30 days.
+shell script to change the user password automatically.
+shell script to check a software is installed in your system or not.
+shell script to know the OS release version/OS type and install software accordinly.
+shell script to check open ports in system.
+shell script to check the users list having root permissions. 
